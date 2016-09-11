@@ -13,7 +13,7 @@ Installation:
 What it do:
 - Send message from a simple form (Name,Email, Subject, Message)
 - Insert submissions into database 
-- Translate destinaion URL after submit (English or french)
+- Translate destination URL after submit (English or french)
 
 Options:
 - Recaptcha : https://www.google.com/recaptcha/intro/index.html
