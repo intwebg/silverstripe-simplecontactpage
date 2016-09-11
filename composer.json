@@ -1,0 +1,22 @@
+{
+  "name": "intwebg/simplecontactpage",
+  "description": "A simple contact page form",
+  "type": "silverstripe-module",
+  "homepage": "https://github.com/intwebg/simplecontactpage",
+  "keywords": ["silverstripe", "contact", "form"],
+  "license": "",
+  "authors": [
+    {
+      "name": "Stéphane Guevremont",
+      "email": "stephane@agencecaza.ca"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/intwebg/simplecontactpage/issues"
+  },
+  "require": {
+    "silverstripe/cms": "~3.1",
+    "silverstripe/framework": "~3.1",
+    "undefinedoffset/silverstripe-nocaptcha": "*"
+  }
+}
