@@ -92,9 +92,9 @@ class SimpleContactPage_Controller extends Page_Controller {
 			$dbsubmit->Subject = $data['Subject'];
 			$dbsubmit->write();
 				
-			// Envoi un mail
+			// Send a mail
 				
-			$subject=$data['Sujet'];
+			$subject=$data['Subject'];
 					
 			$body=	$data['Date']."<br><br>".
 			"A email from : ".$data['Nom']." (".$data['Courriel'].") <br><br>".
