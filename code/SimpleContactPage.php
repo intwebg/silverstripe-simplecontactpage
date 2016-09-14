@@ -96,13 +96,13 @@ class SimpleContactPage_Controller extends Page_Controller {
 				
 			$subject=$data['Subject'];
 					
-			$body=	$data['Date']."<br><br>".
-			"A email from : ".$data['Nom']." (".$data['Courriel'].") <br><br>".
+			$body="A email from : ".$data['Name']." (".$data['Email'].") <br><br>".
 			"Message : ".$data['Message'];
-		
+
+
 			$email = new Email();
-			$email->setFrom($data['Email'])->setTo($this->To);
-			$email->addCustomHeader('Reply-To', $data['Email']);
+			$email->setFrom($this->From)->setTo($data['Email']);
+			//$email->addCustomHeader('Reply-To', $data['Email']);
 		
 			if ($this->Bcc) {
 				$email->setBcc($this->Bcc);
@@ -118,6 +118,9 @@ class SimpleContactPage_Controller extends Page_Controller {
 				//)))
 
 			$email->send();
+
+
+
 
 			if ($this->ConfirmationMessage) {
 				$Content = $this->ConfirmationMessage;
