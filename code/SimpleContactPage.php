@@ -169,14 +169,7 @@ class SimpleContactPage_Controller extends Page_Controller {
 				'Content' => $_SESSION['Content'],
 				'ContactForm' => "",
 			);
-		
-			$this->customise(array(
-				'Content' => $this->customise(array(
-					'Submission' => $submission)
-					)->renderWith('SimpleContactPage'),
-				'ContactForm' => '',
-			));
-				
+						
 			unset($_SESSION['SUBMIT']);
 				
 			return $this->customise($items)->renderWith('Page','SimpleContactPage');
