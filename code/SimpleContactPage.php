@@ -12,7 +12,9 @@ class SimpleContactPage extends Page {
 		'Recaptcha' => 'Boolean',
 	);
 	
-	private static $has_one = array(
+	
+	private static $has_many = array(
+		'SimpleContactSubmissions' => 'SimpleContactSubmission'
 	);
 	
 	function getCMSFields() { 
@@ -24,8 +26,11 @@ class SimpleContactPage extends Page {
 		$conf->removeComponentsByType($conf->getComponentByType('GridFieldAddNewButton'));
 		$conf->removeComponentsByType($conf->getComponentByType('GridFieldDeleteAction'));
 		
+		/*$grid = new GridField('SimpleContactSubmission', _t('SimpleContactPage.SUBMISSIONS','Submissions'),
+            		SimpleContactSubmission::get()->filter('PageID', $this->ID)->sort('Created',DESC), $conf
+		);  */ 
 		$grid = new GridField('SimpleContactSubmission', _t('SimpleContactPage.SUBMISSIONS','Submissions'),
-            		SimpleContactSubmission::get()->sort('Created',DESC), $conf
+            		$this->SimpleContactSubmissions(), $conf
 		);   
 	
 		$fields->addFieldToTab('Root.'. _t('SimpleContactPage.FORM','Form') , new EmailField('From', _t('SimpleContactPage.FROM','From:') ));
@@ -90,14 +95,16 @@ class SimpleContactPage_Controller extends Page_Controller {
 			$dbsubmit->Email = $data['Email'];
 			$dbsubmit->Message = $data['Message'];
 			$dbsubmit->Subject = $data['Subject'];
+			$dbsubmit->PageID = $this->ID;
 			$dbsubmit->write();
 				
 			// Send a mail
 				
-			$subject=$data['Subject'];
+			$subject=_t('SimpleContactPage.SUBJECTFROM','Message coming from page: ').$this->Title;
 					
-			$body="A email from : ".$data['Name']." (".$data['Email'].") <br><br>".
-			"Message : ".$data['Message'];
+			$body = _t('SimpleContactPage.EMAILNAME','Name: ').$data['Name']." (".$data['Email'].") <br><br>".
+				_t('SimpleContactPage.EMAILSUBJECT','Subject:').$data['Subject']."<br><br>".
+				"Message : ".$data['Message'];
 
 
 			$email = new Email();
@@ -143,7 +150,7 @@ class SimpleContactPage_Controller extends Page_Controller {
 			$_SESSION['SUBMIT']=true;
 	
 			//return $this->customise($items)->renderWith(array('Page'));
-			$this->redirect($this->Link( _t('SimpleContactPage.CONTROLLER', 'sent') ));
+			$this->redirect($this->Link( _t('SimpleContactPage.CONTROLLER', 'finished') ));
 				
 		} else {
 				
@@ -201,12 +208,6 @@ class SimpleContactPage_Controller extends Page_Controller {
 	
 	}
 	
-	/*
-	private static $url_handlers = array(
-        'finished' => 'finished'
-    );
-*/
-
 }
 
 
@@ -219,6 +220,11 @@ class SimpleContactSubmission extends DataObject {
 		"Message" => "Text",
 		"Email" => "Text",
 	);	
+
+	private static $has_one = array(
+		"Page" => "Page",
+	);	
+
 
 	public static $summary_fields = array(
 		'ID',
