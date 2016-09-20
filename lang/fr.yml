@@ -5,6 +5,8 @@ fr:
     BCC: 'Copie cachée à :'
     NAME: 'Votre nom'
     EMAIL: 'Courriel'
+    EMAILNAME: 'Nom :'
+    EMAILSUBJECT: 'Sujet :'
     SUBJECT: 'Sujet'
     MESSAGE: 'Votre message'
     SUBMIT: 'Soumettre'
@@ -14,3 +16,4 @@ fr:
     SUBMISSIONS: 'Soumissions'
     PROBLEM: 'Un problème est survenu lors de la soumission. Veuillez vérifier la configuration.'
     CONTROLLER: 'termine'
+    SUBJECTFROM: 'Message provenant de la page : '
