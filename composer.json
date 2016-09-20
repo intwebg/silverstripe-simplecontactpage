@@ -4,7 +4,7 @@
   "type": "silverstripe-module",
   "homepage": "https://github.com/intwebg/simplecontactpage",
   "keywords": ["silverstripe", "contact", "form"],
-  "license": "GNUv3",
+  "license": "GPLv3",
   "authors": [
     {
       "name": "Stéphane Guevremont",
