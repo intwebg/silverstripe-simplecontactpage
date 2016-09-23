@@ -17,3 +17,5 @@ fr:
     PROBLEM: 'Un problème est survenu lors de la soumission. Veuillez vérifier la configuration.'
     CONTROLLER: 'termine'
     SUBJECTFROM: 'Message provenant de la page : '
+    UPLOADFILE: 'Charger un fichier'
+    CAPTCHAPROTECTION: 'Protection anti-spam'
