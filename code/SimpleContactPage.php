@@ -87,7 +87,7 @@ class SimpleContactPage_Controller extends Page_Controller {
 		if ($this->Recaptcha) {
 			$form->enableSpamProtection()
 			->fields()->fieldByName('Captcha')
-			->setTitle("Protection anti-spam");
+			->setTitle(_t('SimpleContactPage.CAPTCHAPROTECTION', "Captcha Spam protection") );
 		}
 			
 		return $form;
