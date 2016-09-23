@@ -10,6 +10,7 @@ class SimpleContactPage extends Page {
 		'Bcc' => 'Text',
 		'ConfirmationMessage' => 'HTMLText',
 		'Recaptcha' => 'Boolean',
+		'FileUpload' => 'Boolean',
 	);
 	
 	
@@ -37,9 +38,12 @@ class SimpleContactPage extends Page {
 		$fields->addFieldToTab('Root.'. _t('SimpleContactPage.FORM','Form') , new EmailField('To', _t('SimpleContactPage.TO','TO:') ));
 		$fields->addFieldToTab('Root.'. _t('SimpleContactPage.FORM','Form') , new EmailField('Bcc', _t('SimpleContactPage.BCC','Bcc to:') ));
 		$fields->addFieldToTab('Root.'. _t('SimpleContactPage.FORM','Form') , new CheckboxField('Recaptcha', 'Recaptcha') );
+		$fields->addFieldToTab('Root.'. _t('SimpleContactPage.FORM','Form') , new CheckboxField('FileUpload', _t('SimpleContactPage.UPLOADFILE','Upload a file')) );
 		$fields->addFieldToTab('Root.'. _t('SimpleContactPage.FORM','Form') , $editor = new HTMLEditorField('ConfirmationMessage', _t('SimpleContactPage.CONFIRMATION','Confirmation message:') ));
 			$editor->setRows(4);
-		$fields->addFieldToTab('Root.'. _t('SimpleContactPage.FORM','Form') , $grid);
+		$fields->addFieldToTab('Root.'. _t('SimpleContactPage.SUBMISSIONS','Submissions') , $grid);
+
+
 		     
 		return $fields; 
 	}
@@ -60,8 +64,12 @@ class SimpleContactPage_Controller extends Page_Controller {
 			EmailField::create('Email', '')->setAttribute('placeholder', _t('SimpleContactPage.EMAIL','Email') ),
 			TextField::create('Subject', '')->setAttribute('placeholder', _t('SimpleContactPage.SUBJECT','Subject') ),
 			TextAreaField::create('Message', '')->setAttribute('placeholder', _t('SimpleContactPage.MESSAGE','Your message') )->setRows(10)
-			//HiddenField::create('SecurityToken', '', md5(time()))
 		);
+		
+		if ($this->FileUpload) {
+			$fields->push(FileField::create('File', '')->setAttribute('placeholder', 'File','File'));
+		}
+	
 	
 		$actions = new FieldList(
 			FormAction::create("ContactFormSubmit")->setTitle(_t('SimpleContactPage.SUBMIT','Submit'))
@@ -111,6 +119,14 @@ class SimpleContactPage_Controller extends Page_Controller {
 			$email->setFrom($this->From)->setTo($data['Email']);
 			//$email->addCustomHeader('Reply-To', $data['Email']);
 		
+			if ($this->FileUpload) {
+				if (isset($_FILES["File"]) && is_uploaded_file($_FILES["File"]["tmp_name"])) {
+					$email->attachFile($_FILES["File"]["tmp_name"], $_FILES["File"]["name"]);
+					//$email->attachFile('assets/1.png');
+				}		
+			}
+			
+
 			if ($this->Bcc) {
 				$email->setBcc($this->Bcc);
 			}
@@ -125,9 +141,6 @@ class SimpleContactPage_Controller extends Page_Controller {
 				//)))
 
 			$email->send();
-
-
-
 
 			if ($this->ConfirmationMessage) {
 				$Content = $this->ConfirmationMessage;
