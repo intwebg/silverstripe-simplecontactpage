@@ -1,8 +1,8 @@
 {
-  "name": "intwebg/simplecontactpage",
+  "name": "intwebg/silverstripe-simplecontactpage",
   "description": "A simple contact page form",
   "type": "silverstripe-module",
-  "homepage": "https://github.com/intwebg/simplecontactpage",
+  "homepage": "https://github.com/intwebg/silverstripe-simplecontactpage",
   "keywords": ["silverstripe", "contact", "form"],
   "license": "GPLv3",
   "authors": [
@@ -12,7 +12,7 @@
     }
   ],
   "support": {
-    "issues": "https://github.com/intwebg/simplecontactpage/issues"
+    "issues": "https://github.com/intwebg/silverstripe-simplecontactpage/issues"
   },
   "require": {
     "silverstripe/cms": "~3.1",
