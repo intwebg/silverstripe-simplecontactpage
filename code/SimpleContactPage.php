@@ -111,12 +111,12 @@ class SimpleContactPage_Controller extends Page_Controller {
 			$subject=_t('SimpleContactPage.SUBJECTFROM','Message coming from page: ').$this->Title;
 					
 			$body = _t('SimpleContactPage.EMAILNAME','Name: ').$data['Name']." (".$data['Email'].") <br><br>".
-				_t('SimpleContactPage.EMAILSUBJECT','Subject:').$data['Subject']."<br><br>".
-				"Message : ".$data['Message'];
+				_t('SimpleContactPage.EMAILSUBJECT','Subject: ').$data['Subject']."<br><br>".
+				"Message: ".$data['Message'];
 
 
 			$email = new Email();
-			$email->setFrom($this->From)->setTo($data['Email']);
+			$email->setFrom($this->From)->setTo($this->To);
 			//$email->addCustomHeader('Reply-To', $data['Email']);
 		
 			if ($this->FileUpload) {
