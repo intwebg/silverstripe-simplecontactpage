@@ -34,7 +34,10 @@ class SimpleContactPage extends Page {
 		$fields->addFieldToTab('Root.'. _t('SimpleContactPage.FORM','Form') , new EmailField('From', _t('SimpleContactPage.FROM','From:') ));
 		$fields->addFieldToTab('Root.'. _t('SimpleContactPage.FORM','Form') , new EmailField('To', _t('SimpleContactPage.TO','TO:') ));
 		$fields->addFieldToTab('Root.'. _t('SimpleContactPage.FORM','Form') , new EmailField('Bcc', _t('SimpleContactPage.BCC','Bcc to:') ));
-		$fields->addFieldToTab('Root.'. _t('SimpleContactPage.FORM','Form') , new CheckboxField('Recaptcha', 'Recaptcha') );
+
+		if (class_exists('SpamProtectorManager')) {
+			$fields->addFieldToTab('Root.'. _t('SimpleContactPage.FORM','Form') , new CheckboxField('Recaptcha', 'Recaptcha') );
+		}
 		$fields->addFieldToTab('Root.'. _t('SimpleContactPage.FORM','Form') , new CheckboxField('FileUpload', _t('SimpleContactPage.UPLOADFILE','Upload a file')) );
 		$fields->addFieldToTab('Root.'. _t('SimpleContactPage.FORM','Form') , $editor = new HTMLEditorField('ConfirmationMessage', _t('SimpleContactPage.CONFIRMATION','Confirmation message:') ));
 			$editor->setRows(4);
