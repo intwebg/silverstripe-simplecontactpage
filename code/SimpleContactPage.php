@@ -28,7 +28,7 @@ class SimpleContactPage extends Page {
 		$conf->removeComponentsByType($conf->getComponentByType('GridFieldDeleteAction'));
 		
 		$grid = new GridField('SimpleContactSubmission', _t('SimpleContactPage.SUBMISSIONS','Submissions'),
-            		$this->SimpleContactSubmissions()->sort('Created',DESC), $conf
+            		$this->SimpleContactSubmissions()->sort('ID',DESC), $conf
 		);   
 	
 		$fields->addFieldToTab('Root.'. _t('SimpleContactPage.FORM','Form') , new EmailField('From', _t('SimpleContactPage.FROM','From:') ));
