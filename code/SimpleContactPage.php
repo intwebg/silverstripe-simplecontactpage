@@ -27,11 +27,8 @@ class SimpleContactPage extends Page {
 		$conf->removeComponentsByType($conf->getComponentByType('GridFieldAddNewButton'));
 		$conf->removeComponentsByType($conf->getComponentByType('GridFieldDeleteAction'));
 		
-		/*$grid = new GridField('SimpleContactSubmission', _t('SimpleContactPage.SUBMISSIONS','Submissions'),
-            		SimpleContactSubmission::get()->filter('PageID', $this->ID)->sort('Created',DESC), $conf
-		);  */ 
 		$grid = new GridField('SimpleContactSubmission', _t('SimpleContactPage.SUBMISSIONS','Submissions'),
-            		$this->SimpleContactSubmissions(), $conf
+            		$this->SimpleContactSubmissions()->sort('Created',DESC), $conf
 		);   
 	
 		$fields->addFieldToTab('Root.'. _t('SimpleContactPage.FORM','Form') , new EmailField('From', _t('SimpleContactPage.FROM','From:') ));
@@ -116,13 +113,18 @@ class SimpleContactPage_Controller extends Page_Controller {
 
 
 			$email = new Email();
-			$email->setFrom($this->From)->setTo($this->To);
-			//$email->addCustomHeader('Reply-To', $data['Email']);
+			if ($this->From) {
+				$email->setFrom($this->From);	
+				$email->addCustomHeader('Reply-To', $data['Email']);
+			} else {
+				$email->setFrom($data['Email']);	
+				
+			}
+			$email->setTo($this->To);
 		
 			if ($this->FileUpload) {
 				if (isset($_FILES["File"]) && is_uploaded_file($_FILES["File"]["tmp_name"])) {
 					$email->attachFile($_FILES["File"]["tmp_name"], $_FILES["File"]["name"]);
-					//$email->attachFile('assets/1.png');
 				}		
 			}
 			
